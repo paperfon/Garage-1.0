@@ -21,17 +21,16 @@ namespace Garage_1._0
             var car = new Car("reg123", "blue", 4, "Volvo", 1995, "Gasoline");
             var motorcycle = new Motorcycle("reg123", "blue", 2, "Volvo", 1995, 50);
             var motorcycle2 = new Motorcycle("reg456", "green", 2, "Volvo", 2019, 50);
-            //}
 
             creator.ParkVehicle(garage, airplane);
             creator.ParkVehicle(garage, boat);
             creator.ParkVehicle(garage, motorcycle);
-            // creator.ParkVehicle(garage, motorcycle2);
+            creator.ParkVehicle(garage, motorcycle2);
             //creator.ParkVehicle(garage, bus);
             //creator.ParkVehicle(garage, car);
             creator.ListAllParkedVehicles(garage);
             creator.ListAmountAndVehicleType(garage);
-            //creator.UnparkVehicle(garage, motorcycle2);
+            creator.UnparkVehicle(garage, motorcycle2);
 
         }
 

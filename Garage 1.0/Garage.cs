@@ -13,7 +13,7 @@ namespace Garage_1._0
         private Vehicle[] ParkedVehicles;
         // Only to read when instantiating a garage object
         // Todo: remove?
-        internal readonly uint Capacity;
+        public readonly uint Capacity;
         // Count all the spaces that are not empty
         public int Count => ParkedVehicles.Count(i => i != null);
 
@@ -39,7 +39,8 @@ namespace Garage_1._0
         internal void ListAmountAndVehicleType()
         {
             // https://stackoverflow.com/questions/1139181/a-method-to-count-occurrences-in-a-list
-            var grouping = ParkedVehicles.GroupBy(i => i.GetType().Name);
+            // https://stackoverflow.com/questions/18527896/groupby-how-to-handle-empty-groups
+            var grouping = ParkedVehicles.GroupBy(i => i?.GetType().Name);
             Console.WriteLine();
 
             foreach (var item in grouping)
@@ -69,22 +70,26 @@ namespace Garage_1._0
 
         internal bool UnparkVehicle(Vehicle vehicle)
         {
-            while (true)
-            {
-                ListAllParkedVehicles();
-                var input = Utils.AskForNumber("Which vehicle do you want to unpark? Please write a number");
 
-                switch (input)
-                {
-                    case 1:
                         Array.Clear(ParkedVehicles, 1, 2);
-                        //ParkedVehicles[0] = null;
                         ListAllParkedVehicles();
-                        break;
-                    default:
-                        break;
-                }
-            }
+                        return true;
+            // while (true)
+            // {
+            //     ListAllParkedVehicles();
+            //     var input = Utils.AskForNumber("Which vehicle do you want to unpark? Please write a number");
+
+            //     switch (input)
+            //     {
+            //         case 1:
+            //             Array.Clear(ParkedVehicles, 1, 2);
+            //             //ParkedVehicles[0] = null;
+            //             ListAllParkedVehicles();
+            //             break;
+            //         default:
+            //             break;
+            //     }
+            // }
         }
 
         public IEnumerator<T> GetEnumerator()
