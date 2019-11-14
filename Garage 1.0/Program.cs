@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using Garage_1._0.Vehicles;
 
 namespace Garage_1._0
 {
@@ -6,72 +8,45 @@ namespace Garage_1._0
     {
         static void Main(string[] args)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            while (true)
-            {
-                Console.Clear();
-                Console.WriteLine("Please select what you want to do by choosing a number from this menu:"
-                    + "\n1. Create a new garage"
-                    + "\n2. List all the garages"
-                    + "\nQ. Close the app");
+            //UI.MainMenu();
 
-                char input = ' ';
-                try
-                {
-                    input = Console.ReadLine()[0];
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    Console.Clear();
-                    Console.WriteLine("==> Please choose a number!\n");
-                }
+            var creator = new GarageHandler();
 
-                switch (input)
-                {
-                    case '1':
-                        CreateNewGarage();
-                        break;
-                    case '2':
-                        ListAllGarages();
-                        break;
-                    case 'Q':
-                        CloseApp();
-                        return;
-                    default:
-                        Console.Clear();
-                        Console.WriteLine("==> Selection not valid, please choose a number from the menu!\n");
-                        break;
-                }
-            }
+            var garage = creator.CreateGarage("ABC garage", 4);
+            Console.WriteLine($"Garage '{garage.Name}' with {garage.Capacity} parking places has been created successfully, press a key to go back to the main menu!");
+
+            var airplane = new Airplane("reg123", "blue", 4, "Volvo", 1995, 4);
+            var boat = new Boat("reg123", "blue", 4, "Volvo", 1995, 45);
+            var bus = new Bus("reg123", "blue", 4, "Volvo", 1995, 44);
+            var car = new Car("reg123", "blue", 4, "Volvo", 1995, "Gasoline");
+            var motorcycle = new Motorcycle("reg123", "blue", 2, "Volvo", 1995, 50);
+            var motorcycle2 = new Motorcycle("reg456", "green", 2, "Volvo", 2019, 50);
+            //}
+
+            creator.ParkVehicle(garage, airplane);
+            creator.ParkVehicle(garage, boat);
+            creator.ParkVehicle(garage, motorcycle);
+            // creator.ParkVehicle(garage, motorcycle2);
+            //creator.ParkVehicle(garage, bus);
+            //creator.ParkVehicle(garage, car);
+            creator.ListAllParkedVehicles(garage);
+            creator.ListAmountAndVehicleType(garage);
+            //creator.UnparkVehicle(garage, motorcycle2);
+
         }
 
-        private static void CreateNewGarage()
-        {
-            while (true)
-            {
-                Console.Clear();
-                string inputName = Utils.AskForInput("Please write the name of the garage:\n" 
-                    + "(Press 0 to go back)");
-                if (inputName == "0") break;
+        // Todo: Writing the object to a file and loading from a file
+        //string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{creator.Name}.txt");
+        //string path = @"C:\Users\Elev\source\repos\Garage 1.0\Garage 1.0\";
+        //string fullPath = path + $"GAR-{creator.Name}.txt";
+        //Console.WriteLine(fullPath);
 
-                uint inputCapacity = Utils.AskForNumber("Write the capacity of the garage:\n" 
-                    + "(Press 0 to cancel and go back)");
-                if (inputCapacity == 0) break;
+        //File.WriteAllText(fullPath, $"{creator.Name}{creator.Capacity}");
 
-                var creator = new Garage(inputName, inputCapacity);
-
-                Console.WriteLine($"Garage {inputName} created successfully, press a key to go back to the main menu!");
-                Console.ReadKey();
-                break;
-            }
-        }
-
-        private static void ListAllGarages()
-        {
-        }
-
-        private static void CloseApp()
-        {
-        }
+        //using (var writer = File.AppendText($"{creator.Name}.txt"))
+        //{
+        //    writer.WriteLine(creator);
+        //    writer.WriteLine(creator.Capacity);
+        //}
     }
 }

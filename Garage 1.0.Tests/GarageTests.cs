@@ -13,7 +13,7 @@ namespace Garage_1._0.Tests
 
             // Act
             var expectedName = "Mi garaje";
-            var expectedCapacity = 20;
+            uint expectedCapacity = 20;
 
             // Assert
             Assert.Equal(expectedName, garage.Name);
