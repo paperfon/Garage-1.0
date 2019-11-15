@@ -13,22 +13,23 @@ namespace Garage_1._0
 
         public void ListAllParkedVehicles(Garage<Vehicle> garage)
         {
-            garage.ListAllParkedVehicles();
+            UI.DisplayParkedVehicles(garage.ListAllParkedVehicles());
         }
 
         public void ListAmountAndVehicleType(Garage<Vehicle> garage)
         {
-            garage.ListAmountAndVehicleType();
+            UI.ListVehiclesTypes(garage.ListAmountAndVehicleType());
         }
 
         public void ParkVehicle(Garage<Vehicle> garage, Vehicle vehicle)
         {
-            if (garage.ParkVehicle(vehicle)) { UI.SuccessActionMessage(); }
+            if (garage.ParkVehicle(vehicle)) { UI.SuccessParkedMessage(); }
         }
 
-        public void UnparkVehicle(Garage<Vehicle> garage, Vehicle vehicle)
+        public void UnparkVehicle(Garage<Vehicle> garage, string regnumber)
         {
-            if (garage.UnparkVehicle(vehicle)) { UI.SuccessActionMessage(); }
+            if (garage.UnparkVehicle(regnumber)) { UI.SuccessUnparkMessage(); }
+            else { UI.FailedParkMessage(); }
         }
 
         public void FindVehicle()

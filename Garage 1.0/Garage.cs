@@ -27,69 +27,33 @@ namespace Garage_1._0
             ParkedVehicles = new Vehicle[MaxCapacity];
         }
 
-        internal void ListAllParkedVehicles()
+        internal Vehicle[] ListAllParkedVehicles()
         {
-            Console.WriteLine("\nThe parked vehicles in the garage are: ");
-            for (int i = 0; i < Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {ParkedVehicles[i].GetType().Name} - {ParkedVehicles[i].RegNumber}");
-            }
+            Vehicle[] parkedVehiclesClone = ParkedVehicles.Clone() as Vehicle[];
+            return parkedVehiclesClone;
         }
 
-        internal void ListAmountAndVehicleType()
+        internal IEnumerable<IGrouping<string, Vehicle>> ListAmountAndVehicleType()
         {
-            // https://stackoverflow.com/questions/1139181/a-method-to-count-occurrences-in-a-list
-            // https://stackoverflow.com/questions/18527896/groupby-how-to-handle-empty-groups
             var grouping = ParkedVehicles.GroupBy(i => i?.GetType().Name);
-            Console.WriteLine();
-
-            foreach (var item in grouping)
-            {
-                Console.WriteLine("The garage contains {0} unit(s) of this type of vehicle: {1}", item.Count(), item.Key);
-            }
+            return grouping;
         }
 
         internal bool ParkVehicle(Vehicle vehicle)
         {
-            if (IsFull)
-            {
-                Console.WriteLine("The garage is full");
-                return false;
-            }
-            else
-            {
-                Console.WriteLine("The garage is not full");
-                // Find an index to place the vehicle and add it
-                int index = Array.FindIndex(ParkedVehicles, i => i == null || String.IsNullOrEmpty(i.RegNumber));
-                ParkedVehicles[index] = vehicle;
-
-                Console.WriteLine("Used spaces " + Count);
-                return true;
-            }
+            if (IsFull) return false;
+            // Find an index to park the vehicle (if index is null or there is no regnumber property)
+            int index = Array.FindIndex(ParkedVehicles, i => i == null || String.IsNullOrEmpty(i.RegNumber));
+            ParkedVehicles[index] = vehicle;
+            return true;
         }
 
-        internal bool UnparkVehicle(Vehicle vehicle)
+        internal bool UnparkVehicle(string regnumber)
         {
-
-                        Array.Clear(ParkedVehicles, 1, 2);
-                        ListAllParkedVehicles();
-                        return true;
-            // while (true)
-            // {
-            //     ListAllParkedVehicles();
-            //     var input = Utils.AskForNumber("Which vehicle do you want to unpark? Please write a number");
-
-            //     switch (input)
-            //     {
-            //         case 1:
-            //             Array.Clear(ParkedVehicles, 1, 2);
-            //             //ParkedVehicles[0] = null;
-            //             ListAllParkedVehicles();
-            //             break;
-            //         default:
-            //             break;
-            //     }
-            // }
+            int index = Array.FindIndex(ParkedVehicles, i => i.RegNumber.ToLower() == regnumber.ToLower());
+            Console.WriteLine(index);
+            ParkedVehicles[index] = null;
+            return true;
         }
 
         public IEnumerator<T> GetEnumerator()

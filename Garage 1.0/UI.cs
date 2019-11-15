@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Garage_1._0
@@ -99,9 +100,48 @@ namespace Garage_1._0
             }
         }
 
-        public static void SuccessActionMessage()
+        public static void SuccessParkedMessage()
         {
-            Console.WriteLine("The action was successfully performed!");
+            Console.WriteLine("The vehicle was successfully parked!");
+        }
+
+        public static void SuccessUnparkMessage()
+        {
+            Console.WriteLine("The vehicle was unparked!");
+        }
+
+        internal static void FailedParkMessage()
+        {
+            Console.WriteLine("The garage is full!");
+        }
+        internal static void ListVehiclesTypes(IEnumerable<IGrouping<string, Vehicle>> listOfVehiclesByType)
+        {
+            foreach (var item in listOfVehiclesByType)
+            {
+                if (string.IsNullOrEmpty(item.Key)) { }
+                else
+                {
+                    Console.WriteLine("The garage contains {0} unit(s) of this type of vehicle: {1}",
+                        item.Count(),
+                        item.Key);
+                }
+            }
+        }
+
+        internal static void DisplayParkedVehicles(Vehicle[] parkedVehicles)
+        {
+            Console.WriteLine("\nThe parked vehicles in the garage are: ");
+            for (int i = 0; i < parkedVehicles.Length; i++)
+            {
+                if (parkedVehicles[i] == null)
+                {
+                    Console.WriteLine($"{i + 1}. ---");
+                }
+                else
+                {
+                    Console.WriteLine($"{i + 1}. {parkedVehicles[i].GetType().Name} - {parkedVehicles[i].RegNumber}");
+                }
+            }
         }
     }
 }
