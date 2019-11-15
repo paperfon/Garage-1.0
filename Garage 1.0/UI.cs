@@ -9,6 +9,7 @@ namespace Garage_1._0
     {
 
         static GarageHandler handler = new GarageHandler();
+
         static public void MainMenu()
         {
             Console.Clear();
@@ -142,6 +143,15 @@ namespace Garage_1._0
                     Console.WriteLine($"{i + 1}. {parkedVehicles[i].GetType().Name} - {parkedVehicles[i].RegNumber}");
                 }
             }
+        }
+        internal static void FailedFoundVehicle()
+        {
+            Console.WriteLine("The vehicle with that regnumber was not found");
+        }
+
+        internal static void SuccessFoundVehicle()
+        {
+            Console.WriteLine($"The vehicle was found at the parking");
         }
     }
 }

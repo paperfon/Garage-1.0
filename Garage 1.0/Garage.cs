@@ -50,9 +50,31 @@ namespace Garage_1._0
 
         internal bool UnparkVehicle(string regnumber)
         {
+            // todo: what if trying to unpark an unexisting vehicle?
             int index = Array.FindIndex(ParkedVehicles, i => i.RegNumber.ToLower() == regnumber.ToLower());
-            Console.WriteLine(index);
             ParkedVehicles[index] = null;
+            return true;
+        }
+
+        internal bool FindVehicleOnRegnumber(string regnumber)
+        {
+            Console.WriteLine("Finding a vehicle");
+            //bool found = Array.Exists(ParkedVehicles, i => i.RegNumber.ToLower() == regnumber.ToLower());
+            //if (!Array.Exists(ParkedVehicles, i => i.RegNumber.ToLower() == regnumber.ToLower())) { return false; }
+            //var q = from v in ParkedVehicles
+            //        where v.RegNumber.ToLower() == regnumber.ToLower()
+            //        select v;
+
+            var q = ParkedVehicles
+                .Where(v => v.RegNumber.ToLower() == regnumber.ToLower());
+            foreach (var item in q)
+            {   
+                Console.WriteLine("foreach loop " + item);
+            }
+            if (q == null)
+            {
+                return false;
+            }
             return true;
         }
 

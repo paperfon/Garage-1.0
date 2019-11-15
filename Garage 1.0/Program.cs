@@ -15,7 +15,7 @@ namespace Garage_1._0
             var garage = creator.CreateGarage("ABC garage", 4);
             Console.WriteLine($"Garage '{garage.Name}' with {garage.Capacity} parking places has been created successfully, press a key to go back to the main menu!");
 
-            var airplane = new Airplane("reg123", "blue", 4, "Volvo", 1995, 4);
+            var airplane = new Airplane("reg321", "blue", 4, "Volvo", 1995, 4);
             var boat = new Boat("reg123", "blue", 4, "Volvo", 1995, 45);
             var bus = new Bus("reg123", "blue", 4, "Volvo", 1995, 44);
             var car = new Car("reg123", "blue", 4, "Volvo", 1995, "Gasoline");
@@ -34,6 +34,9 @@ namespace Garage_1._0
             creator.ListAllParkedVehicles(garage);
             creator.ListAmountAndVehicleType(garage);
 
+            creator.FindVehicleOnRegNumber(garage, "reg321");
+            //creator.FindVehicleOnRegNumber(garage, "reg123");
+            //creator.FindVehicleOnRegNumber(garage, "reg456777");
         }
 
         // Todo: Writing the object to a file and loading from a file

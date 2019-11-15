@@ -37,9 +37,10 @@ namespace Garage_1._0
 
         }
 
-        public void FindVehicleOnRegNumber()
+        public void FindVehicleOnRegNumber(Garage<Vehicle> garage, string regnumber)
         {
-
+            if (garage.FindVehicleOnRegnumber(regnumber)) { UI.SuccessFoundVehicle(); }
+            else { UI.FailedFoundVehicle(); }
         }
     }
 }
