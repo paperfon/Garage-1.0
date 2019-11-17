@@ -19,8 +19,8 @@ namespace Garage_1._0
             var boat = new Boat("reg123", "blue", 4, "Volvo", 1995, 45);
             var bus = new Bus("reg123", "blue", 4, "Volvo", 1995, 44);
             var car = new Car("reg123", "blue", 4, "Volvo", 1995, "Gasoline");
-            var motorcycle = new Motorcycle("reg123", "blue", 2, "Volvo", 1995, 50);
-            var motorcycle2 = new Motorcycle("reg456", "green", 2, "Volvo", 2019, 50);
+            var motorcycle = new Motorcycle("reg123", "violet", 2, "Honda", 1995, 50);
+            var motorcycle2 = new Motorcycle("reg456", "purple", 2, "Honda", 2019, 50);
 
             creator.ParkVehicle(garage, airplane);
             creator.ParkVehicle(garage, boat);
@@ -28,13 +28,15 @@ namespace Garage_1._0
             creator.ParkVehicle(garage, motorcycle2);
             //creator.ParkVehicle(garage, bus);
             //creator.ParkVehicle(garage, car);
-            creator.ListAllParkedVehicles(garage);
-            creator.ListAmountAndVehicleType(garage);
+            creator.ListParkedVehicles(garage);
+            creator.ListVehicleTypes(garage);
             creator.UnparkVehicle(garage, "reg123");
-            creator.ListAllParkedVehicles(garage);
-            creator.ListAmountAndVehicleType(garage);
+            creator.ListParkedVehicles(garage);
+            creator.ListVehicleTypes(garage);
 
             creator.FindVehicleOnRegNumber(garage, "reg321");
+
+            creator.FindVehicleOnProperties(garage, "Honda", color: "purple");
             //creator.FindVehicleOnRegNumber(garage, "reg123");
             //creator.FindVehicleOnRegNumber(garage, "reg456777");
         }

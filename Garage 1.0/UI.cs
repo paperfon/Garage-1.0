@@ -78,7 +78,7 @@ namespace Garage_1._0
             switch (input)
             {
                 case 1:
-                    handler.ListAllParkedVehicles(garage);
+                    handler.ListParkedVehicles(garage);
                     break;
                 case 2:
                     break;
@@ -129,15 +129,20 @@ namespace Garage_1._0
             }
         }
 
-        internal static void DisplayParkedVehicles(IEnumerable<Garage_1._0.Garage<Vehicle>.ExportParkedVehicles> parkedVehicles)
+        internal static void DisplayParkedVehicles(IEnumerable<Garage_1._0.Garage<Vehicle>.ExportedListOfVehicles> parkedVehicles)
         {
             Console.WriteLine("\nThe parked vehicles in the garage are:");
             foreach (var item in parkedVehicles)
             {
-                Console.WriteLine("Parking Number: " + item.ParkingSpot);
-                Console.WriteLine("Vehicle Type: " + item.TypeOfVehicle);
-                Console.WriteLine("Reg Number: " + item.RegNumber);
-                Console.WriteLine("-----");
+                Console.WriteLine("\nParking Spot Nr: " + item.ParkingSpot +
+                    "\nVehicle Type: " + item.TypeOfVehicle +
+                    "\nVehicle Type: " + item.TypeOfVehicle +
+                    "\nReg Number: " + item.RegNumber +
+                    "\nFabricant: " + item.Fabricant + 
+                    "\nNumber of Wheels: " + item.NumberOfWheels +
+                    "\nColor: " + item.Color +
+                    "\nProduction Year: " + item.ProductionYear +
+                    "\n-----");
             }
         }
         internal static void FailedFoundVehicle()

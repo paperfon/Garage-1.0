@@ -2,10 +2,10 @@
 {
     interface IVehicle
     {
-        string Color { get; }
+        string RegNumber { get; }
         string Fabricant { get; }
         int NumberOfWheels { get; }
+        string Color { get; }
         int ProductionYear { get; }
-        string RegNumber { get; }
     }
 }

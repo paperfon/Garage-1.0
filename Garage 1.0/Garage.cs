@@ -35,28 +35,36 @@ namespace Garage_1._0
         }
 
         // Internal subclass for exporting the parked vehicle collection to the UI
-        internal class ExportParkedVehicles
+        internal class ExportedListOfVehicles
         {
+            internal string Fabricant { get; set; }
+            internal int NumberOfWheels { get; set; }
+            internal string Color { get; set; }
+            internal int ProductionYear { get; set; }
             internal int ParkingSpot { get; set; }
             internal string TypeOfVehicle { get; set; }
             internal string RegNumber { get; set; }
         }
 
-        internal IEnumerable<ExportParkedVehicles> ListAllParkedVehicles()
+        internal IEnumerable<ExportedListOfVehicles> ListParkedVehicles()
         {
             var result = ParkedVehicles
             .Where(v => v != null)
-            .Select(v => new ExportParkedVehicles
+            .Select(v => new ExportedListOfVehicles
             {
                 ParkingSpot = Array.IndexOf(ParkedVehicles, v) + 1,
                 TypeOfVehicle = v.GetType().Name,
-                RegNumber = v.RegNumber
+                RegNumber = v.RegNumber,
+                Fabricant = v.Fabricant,
+                NumberOfWheels = v.NumberOfWheels,
+                Color = v.Color,
+                ProductionYear = v.ProductionYear
             });
 
             return result;
         }
 
-        internal IEnumerable<IGrouping<string, Vehicle>> ListAmountAndVehicleType()
+        internal IEnumerable<IGrouping<string, Vehicle>> ListVehicleTypes()
         {
             // Todo: Check/Test the methods with empty values
             var grouping = ParkedVehicles.GroupBy(i => i?.GetType().Name);
@@ -92,6 +100,45 @@ namespace Garage_1._0
 
             if (!Array.Exists(ParkedVehicles, i => i.RegNumber.ToLower() == regnumber.ToLower())) { return false; }
             return true;
+        }
+
+        internal IEnumerable<ExportedListOfVehicles> FindVehicleOnProperties(string fabricant, int numberofwheels, string color, int productionyear)
+        {
+            // for loop, for each of the parameters make this query
+            var result = ParkedVehicles
+            .Where(v => v != null)
+            .Select(v => new ExportedListOfVehicles
+            {
+                ParkingSpot = Array.IndexOf(ParkedVehicles, v) + 1,
+                TypeOfVehicle = v.GetType().Name,
+                RegNumber = v.RegNumber,
+                Fabricant = v.Fabricant,
+                NumberOfWheels = v.NumberOfWheels,
+                Color = v.Color,
+                ProductionYear = v.ProductionYear
+            });
+
+            if (!String.IsNullOrEmpty(fabricant))
+            {
+                result = result.Where(i => i.Fabricant == fabricant);
+            }
+
+            if (numberofwheels != 0)
+            {
+                result = result.Where(i => i.NumberOfWheels == numberofwheels);
+            }
+
+            if (!String.IsNullOrEmpty(color))
+            {
+                result = result.Where(i => i.Color == color);
+            }
+
+            if (productionyear != 0)
+            {
+                result = result.Where(i => i.ProductionYear == productionyear);
+            }   
+
+            return result;
         }
 
         public IEnumerator<T> GetEnumerator()

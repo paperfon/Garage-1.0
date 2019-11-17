@@ -11,14 +11,14 @@ namespace Garage_1._0
             return new Garage<Vehicle>(name, maxcapacity);
         }
 
-        public void ListAllParkedVehicles(Garage<Vehicle> garage)
+        public void ListParkedVehicles(Garage<Vehicle> garage)
         {
-            UI.DisplayParkedVehicles(garage.ListAllParkedVehicles());
+            UI.DisplayParkedVehicles(garage.ListParkedVehicles());
         }
 
-        public void ListAmountAndVehicleType(Garage<Vehicle> garage)
+        public void ListVehicleTypes(Garage<Vehicle> garage)
         {
-            UI.ListVehiclesTypes(garage.ListAmountAndVehicleType());
+            UI.ListVehiclesTypes(garage.ListVehicleTypes());
         }
 
         public void ParkVehicle(Garage<Vehicle> garage, Vehicle vehicle)
@@ -32,15 +32,15 @@ namespace Garage_1._0
             else { UI.FailedParkMessage(); }
         }
 
-        public void FindVehicle()
-        {
-
-        }
-
         public void FindVehicleOnRegNumber(Garage<Vehicle> garage, string regnumber)
         {
             if (garage.FindVehicleOnRegnumber(regnumber)) { UI.SuccessFoundVehicle(); }
             else { UI.FailedFoundVehicle(); }
+        }
+
+        public void FindVehicleOnProperties(Garage<Vehicle> garage, string fabricant = "", int numberofwheels = 0, string color = "", int productionyear = 0)
+        {
+            UI.DisplayParkedVehicles(garage.FindVehicleOnProperties(fabricant, numberofwheels, color,  productionyear));
         }
     }
 }
