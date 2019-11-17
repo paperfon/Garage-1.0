@@ -11,9 +11,9 @@ namespace Garage_1._0
             string input;
             do
             {
-                // Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine(prompt);
                 input = Console.ReadLine();
+                Console.WriteLine();
                 if (!string.IsNullOrEmpty(input))
                 {
                     break;
@@ -37,7 +37,7 @@ namespace Garage_1._0
                 converted = uint.TryParse(value, out number);
                 if (!converted)
                 {
-                    Console.WriteLine("\nPlease write a valid number only!");
+                    Console.WriteLine("Please write a valid number only!");
                 }
             } while (!converted);
             return number;

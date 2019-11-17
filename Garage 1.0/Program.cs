@@ -8,35 +8,35 @@ namespace Garage_1._0
     {
         static void Main(string[] args)
         {
-            //UI.MainMenu();
+            UI.MainMenu();
 
-            var creator = new GarageHandler();
+            // var creator = new GarageHandler();
 
-            var garage = creator.CreateGarage("ABC garage", 4);
-            Console.WriteLine($"Garage '{garage.Name}' with {garage.Capacity} parking places has been created successfully, press a key to go back to the main menu!");
+            // var garage = creator.CreateGarage("ABC garage", 4);
+            // Console.WriteLine($"Garage '{garage.Name}' with {garage.Capacity} parking places has been created successfully, press a key to go back to the main menu!");
 
-            var airplane = new Airplane("reg321", "blue", 4, "Volvo", 1995, 4);
-            var boat = new Boat("reg123", "blue", 4, "Volvo", 1995, 45);
-            var bus = new Bus("reg123", "blue", 4, "Volvo", 1995, 44);
-            var car = new Car("reg123", "blue", 4, "Volvo", 1995, "Gasoline");
-            var motorcycle = new Motorcycle("reg123", "violet", 2, "Honda", 1995, 50);
-            var motorcycle2 = new Motorcycle("reg456", "purple", 2, "Honda", 2019, 50);
+            // var airplane = new Airplane("reg321", "blue", 4, "Volvo", 1995, 4);
+            // var boat = new Boat("reg123", "blue", 4, "Volvo", 1995, 45);
+            // var bus = new Bus("reg123", "blue", 4, "Volvo", 1995, 44);
+            // var car = new Car("reg123", "blue", 4, "Volvo", 1995, "Gasoline");
+            // var motorcycle = new Motorcycle("reg123", "violet", 2, "Honda", 1995, 50);
+            // var motorcycle2 = new Motorcycle("reg456", "purple", 2, "Honda", 2019, 50);
 
-            creator.ParkVehicle(garage, airplane);
-            creator.ParkVehicle(garage, boat);
-            creator.ParkVehicle(garage, motorcycle);
-            creator.ParkVehicle(garage, motorcycle2);
-            //creator.ParkVehicle(garage, bus);
-            //creator.ParkVehicle(garage, car);
-            creator.ListParkedVehicles(garage);
-            creator.ListVehicleTypes(garage);
-            creator.UnparkVehicle(garage, "reg123");
-            creator.ListParkedVehicles(garage);
-            creator.ListVehicleTypes(garage);
+            // creator.ParkVehicle(garage, airplane);
+            // creator.ParkVehicle(garage, boat);
+            // creator.ParkVehicle(garage, motorcycle);
+            // creator.ParkVehicle(garage, motorcycle2);
+            // //creator.ParkVehicle(garage, bus);
+            // //creator.ParkVehicle(garage, car);
+            // creator.ListParkedVehicles(garage);
+            // creator.ListVehicleTypes(garage);
+            // creator.UnparkVehicle(garage, "reg123");
+            // creator.ListParkedVehicles(garage);
+            // creator.ListVehicleTypes(garage);
 
-            creator.FindVehicleOnRegNumber(garage, "reg321");
+            // creator.FindVehicleOnRegNumber(garage, "reg321");
 
-            creator.FindVehicleOnProperties(garage, "Honda", color: "purple");
+            // creator.FindVehicleOnProperties(garage, "Honda", color: "purple");
             //creator.FindVehicleOnRegNumber(garage, "reg123");
             //creator.FindVehicleOnRegNumber(garage, "reg456777");
         }

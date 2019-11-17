@@ -6,7 +6,7 @@ namespace Garage_1._0
 {
     public class Vehicle : IVehicle
     {
-        public Vehicle(string regnumber, string color, int numberofwheels, string fabricant, int productionyear)
+        public Vehicle(string regnumber, string color, uint numberofwheels, string fabricant, uint productionyear)
         {
             RegNumber = regnumber;
             Color = color;
@@ -28,8 +28,8 @@ namespace Garage_1._0
 
         public string RegNumber { get; private set; }
         public string Color { get; private set; }
-        public int NumberOfWheels { get; private set; }
+        public uint NumberOfWheels { get; private set; }
         public string Fabricant { get; private set; }
-        public int ProductionYear { get; private set; }
+        public uint ProductionYear { get; private set; }
     }
 }

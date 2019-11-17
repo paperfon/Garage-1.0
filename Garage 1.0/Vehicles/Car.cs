@@ -6,7 +6,7 @@ namespace Garage_1._0.Vehicles
 {
     class Car : Vehicle
     {
-        public Car(string regnumber, string color, int numberofwheels, string fabricant, int productionyear, string fueltype) : base(regnumber, color, numberofwheels, fabricant, productionyear)
+        public Car(string regnumber, string color, uint numberofwheels, string fabricant, uint productionyear, string fueltype) : base(regnumber, color, numberofwheels, fabricant, productionyear)
         {
             FuelType = fueltype;
         }

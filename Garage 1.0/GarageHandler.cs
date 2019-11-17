@@ -38,7 +38,7 @@ namespace Garage_1._0
             else { UI.FailedFoundVehicle(); }
         }
 
-        public void FindVehicleOnProperties(Garage<Vehicle> garage, string fabricant = "", int numberofwheels = 0, string color = "", int productionyear = 0)
+        public void FindVehicleOnProperties(Garage<Vehicle> garage, string fabricant = "", uint numberofwheels = 0, string color = "", uint productionyear = 0)
         {
             UI.DisplayParkedVehicles(garage.FindVehicleOnProperties(fabricant, numberofwheels, color,  productionyear));
         }

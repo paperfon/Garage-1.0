@@ -4,8 +4,8 @@
     {
         string RegNumber { get; }
         string Fabricant { get; }
-        int NumberOfWheels { get; }
+        uint NumberOfWheels { get; }
         string Color { get; }
-        int ProductionYear { get; }
+        uint ProductionYear { get; }
     }
 }

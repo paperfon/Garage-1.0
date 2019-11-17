@@ -6,13 +6,6 @@ using System.Text;
 
 namespace Garage_1._0
 {
-    //     static class ArrayExtensions
-    // {
-    //     public static int IndexOf<T>(this T[] array, T value)
-    //     {
-    //         return Array.IndexOf(array, value);
-    //     }   
-    // }
     public class Garage<T> : IEnumerable<T> where T : Vehicle
     {
         public string Name;
@@ -38,9 +31,9 @@ namespace Garage_1._0
         internal class ExportedListOfVehicles
         {
             internal string Fabricant { get; set; }
-            internal int NumberOfWheels { get; set; }
+            internal uint NumberOfWheels { get; set; }
             internal string Color { get; set; }
-            internal int ProductionYear { get; set; }
+            internal uint ProductionYear { get; set; }
             internal int ParkingSpot { get; set; }
             internal string TypeOfVehicle { get; set; }
             internal string RegNumber { get; set; }
@@ -92,31 +85,19 @@ namespace Garage_1._0
         {
             // Todo: This returns a bool but what if there are multiples vehicles with the same RegNumber due to some user error while input or should the app check this too?
 
-            // var q = from v in ParkedVehicles
-            //        where v != null && v.RegNumber.ToLower() == regnumber.ToLower()
-            //        select v;
-            // if (q == null) { return false; }
-            // return true;
-
-            if (!Array.Exists(ParkedVehicles, i => i.RegNumber.ToLower() == regnumber.ToLower())) { return false; }
+            var q = from v in ParkedVehicles
+                   where v != null && v.RegNumber.ToLower() == regnumber.ToLower()
+                   select v;
+            if (q == null) { return false; }
             return true;
+
+            // if (!Array.Exists(ParkedVehicles, i => i.RegNumber.ToLower() == regnumber.ToLower())) { return false; }
+            // return true;
         }
 
-        internal IEnumerable<ExportedListOfVehicles> FindVehicleOnProperties(string fabricant, int numberofwheels, string color, int productionyear)
+        internal IEnumerable<ExportedListOfVehicles> FindVehicleOnProperties(string fabricant, uint numberofwheels, string color, uint productionyear)
         {
-            // for loop, for each of the parameters make this query
-            var result = ParkedVehicles
-            .Where(v => v != null)
-            .Select(v => new ExportedListOfVehicles
-            {
-                ParkingSpot = Array.IndexOf(ParkedVehicles, v) + 1,
-                TypeOfVehicle = v.GetType().Name,
-                RegNumber = v.RegNumber,
-                Fabricant = v.Fabricant,
-                NumberOfWheels = v.NumberOfWheels,
-                Color = v.Color,
-                ProductionYear = v.ProductionYear
-            });
+            var result = ListParkedVehicles();
 
             if (!String.IsNullOrEmpty(fabricant))
             {

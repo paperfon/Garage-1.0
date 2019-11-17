@@ -6,11 +6,11 @@ namespace Garage_1._0.Vehicles
 {
     class Bus : Vehicle
     {
-        public Bus(string regnumber, string color, int numberofwheels, string fabricant, int productionyear, int numberofseats) : base(regnumber, color, numberofwheels, fabricant, productionyear)
+        public Bus(string regnumber, string color, uint numberofwheels, string fabricant, uint productionyear, uint numberofseats) : base(regnumber, color, numberofwheels, fabricant, productionyear)
         {
             NumberOfSeats = numberofseats;
         }
 
-        public int NumberOfSeats { get; private set; }
+        public uint NumberOfSeats { get; private set; }
     }
 }
