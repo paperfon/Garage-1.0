@@ -129,19 +129,15 @@ namespace Garage_1._0
             }
         }
 
-        internal static void DisplayParkedVehicles(Vehicle[] parkedVehicles)
+        internal static void DisplayParkedVehicles(IEnumerable<Garage_1._0.Garage<Vehicle>.ExportParkedVehicles> parkedVehicles)
         {
-            Console.WriteLine("\nThe parked vehicles in the garage are: ");
-            for (int i = 0; i < parkedVehicles.Length; i++)
+            Console.WriteLine("\nThe parked vehicles in the garage are:");
+            foreach (var item in parkedVehicles)
             {
-                if (parkedVehicles[i] == null)
-                {
-                    Console.WriteLine($"{i + 1}. ---");
-                }
-                else
-                {
-                    Console.WriteLine($"{i + 1}. {parkedVehicles[i].GetType().Name} - {parkedVehicles[i].RegNumber}");
-                }
+                Console.WriteLine("Parking Number: " + item.ParkingSpot);
+                Console.WriteLine("Vehicle Type: " + item.TypeOfVehicle);
+                Console.WriteLine("Reg Number: " + item.RegNumber);
+                Console.WriteLine("-----");
             }
         }
         internal static void FailedFoundVehicle()

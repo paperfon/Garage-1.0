@@ -30,7 +30,7 @@ namespace Garage_1._0
             //creator.ParkVehicle(garage, car);
             creator.ListAllParkedVehicles(garage);
             creator.ListAmountAndVehicleType(garage);
-            creator.UnparkVehicle(garage, "reg456");
+            creator.UnparkVehicle(garage, "reg123");
             creator.ListAllParkedVehicles(garage);
             creator.ListAmountAndVehicleType(garage);
 

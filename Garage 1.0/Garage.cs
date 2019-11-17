@@ -6,6 +6,13 @@ using System.Text;
 
 namespace Garage_1._0
 {
+    //     static class ArrayExtensions
+    // {
+    //     public static int IndexOf<T>(this T[] array, T value)
+    //     {
+    //         return Array.IndexOf(array, value);
+    //     }   
+    // }
     public class Garage<T> : IEnumerable<T> where T : Vehicle
     {
         public string Name;
@@ -27,14 +34,31 @@ namespace Garage_1._0
             ParkedVehicles = new Vehicle[MaxCapacity];
         }
 
-        internal Vehicle[] ListAllParkedVehicles()
+        // Internal subclass for exporting the parked vehicle collection to the UI
+        internal class ExportParkedVehicles
         {
-            Vehicle[] parkedVehiclesClone = ParkedVehicles.Clone() as Vehicle[];
-            return parkedVehiclesClone;
+            internal int ParkingSpot { get; set; }
+            internal string TypeOfVehicle { get; set; }
+            internal string RegNumber { get; set; }
+        }
+
+        internal IEnumerable<ExportParkedVehicles> ListAllParkedVehicles()
+        {
+            var result = ParkedVehicles
+            .Where(v => v != null)
+            .Select(v => new ExportParkedVehicles
+            {
+                ParkingSpot = Array.IndexOf(ParkedVehicles, v) + 1,
+                TypeOfVehicle = v.GetType().Name,
+                RegNumber = v.RegNumber
+            });
+
+            return result;
         }
 
         internal IEnumerable<IGrouping<string, Vehicle>> ListAmountAndVehicleType()
         {
+            // Todo: Check/Test the methods with empty values
             var grouping = ParkedVehicles.GroupBy(i => i?.GetType().Name);
             return grouping;
         }
@@ -50,7 +74,7 @@ namespace Garage_1._0
 
         internal bool UnparkVehicle(string regnumber)
         {
-            // todo: what if trying to unpark an unexisting vehicle?
+            // Todo: What if trying to unpark an unexisting vehicle?
             int index = Array.FindIndex(ParkedVehicles, i => i.RegNumber.ToLower() == regnumber.ToLower());
             ParkedVehicles[index] = null;
             return true;
@@ -58,23 +82,15 @@ namespace Garage_1._0
 
         internal bool FindVehicleOnRegnumber(string regnumber)
         {
-            Console.WriteLine("Finding a vehicle");
-            //bool found = Array.Exists(ParkedVehicles, i => i.RegNumber.ToLower() == regnumber.ToLower());
-            //if (!Array.Exists(ParkedVehicles, i => i.RegNumber.ToLower() == regnumber.ToLower())) { return false; }
-            //var q = from v in ParkedVehicles
-            //        where v.RegNumber.ToLower() == regnumber.ToLower()
-            //        select v;
+            // Todo: This returns a bool but what if there are multiples vehicles with the same RegNumber due to some user error while input or should the app check this too?
 
-            var q = ParkedVehicles
-                .Where(v => v.RegNumber.ToLower() == regnumber.ToLower());
-            foreach (var item in q)
-            {   
-                Console.WriteLine("foreach loop " + item);
-            }
-            if (q == null)
-            {
-                return false;
-            }
+            // var q = from v in ParkedVehicles
+            //        where v != null && v.RegNumber.ToLower() == regnumber.ToLower()
+            //        select v;
+            // if (q == null) { return false; }
+            // return true;
+
+            if (!Array.Exists(ParkedVehicles, i => i.RegNumber.ToLower() == regnumber.ToLower())) { return false; }
             return true;
         }
 
