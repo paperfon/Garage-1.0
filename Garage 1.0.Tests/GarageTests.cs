@@ -9,7 +9,7 @@ namespace Garage_1._0.Tests
         public void Garage_NewInstance()
         {
             // Arrange
-            var garage = new Garage<Vehicle>("Mi garaje", 20);
+            var garage = new Garage<Vehicle>("My Sharona", 20);
 
             // Act
             var expectedName = "Mi garaje";

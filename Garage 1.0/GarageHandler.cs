@@ -29,7 +29,7 @@ namespace Garage_1._0
         public void UnparkVehicle(Garage<Vehicle> garage, string regnumber)
         {
             if (garage.UnparkVehicle(regnumber)) { UI.SuccessUnparkMessage(); }
-            else { UI.FailedParkMessage(); }
+            else { UI.FailedUnparkMessage(); }
         }
 
         public void FindVehicleOnRegNumber(Garage<Vehicle> garage, string regnumber)

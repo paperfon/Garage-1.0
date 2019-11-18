@@ -86,14 +86,14 @@ namespace Garage_1._0
                     CreateAndParkVehicleMenu(garage);
                     break;
                 case 4:
-                    handler.UnparkVehicle(garage, Utils.AskForInput("Write the registration number of the cark you want to unpark:"));
+                    handler.UnparkVehicle(garage, Utils.AskForInput("Write the registration number of the vehicle you want to unpark:"));
                     GarageMenu(garage);
                     break;
                 case 5:
                     FindVehicleByPropertiesMenu(garage);
                     break;
                 case 6:
-                    handler.FindVehicleOnRegNumber(garage, Utils.AskForInput("If you want to check if a car is parked in the garage write its registration number:"));
+                    handler.FindVehicleOnRegNumber(garage, Utils.AskForInput("If you want to check if a vehicle is parked in the garage write its registration number:"));
                     GarageMenu(garage);
                     break;
                 case 0:
@@ -252,12 +252,12 @@ namespace Garage_1._0
 
         public static void SuccessUnparkMessage()
         {
-            Console.WriteLine("The vehicle was unparked!");
+            Console.WriteLine("The vehicle was successfully unparked from the garage!");
         }
 
-        internal static void FailedParkMessage()
+        internal static void FailedUnparkMessage()
         {
-            Console.WriteLine("The garage is full!");
+            Console.WriteLine("The vehicle was not found..");
         }
         internal static void ListVehiclesTypes(IEnumerable<IGrouping<string, Vehicle>> listOfVehiclesByType)
         {
@@ -290,12 +290,12 @@ namespace Garage_1._0
         }
         internal static void FailedFoundVehicle()
         {
-            Console.WriteLine("The vehicle with that regnumber was not found");
+            Console.WriteLine("The vehicle with that registration number was not found..");
         }
 
         internal static void SuccessFoundVehicle()
         {
-            Console.WriteLine($"The vehicle was found at the parking");
+            Console.WriteLine($"The vehicle was found at the parking!");
         }
     }
 }

@@ -76,23 +76,28 @@ namespace Garage_1._0
         internal bool UnparkVehicle(string regnumber)
         {
             // Todo: What if trying to unpark an unexisting vehicle?
-            int index = Array.FindIndex(ParkedVehicles, i => i.RegNumber.ToLower() == regnumber.ToLower());
-            ParkedVehicles[index] = null;
-            return true;
+            int index = Array.FindIndex(ParkedVehicles, i => i!= null && i.RegNumber.ToLower() == regnumber.ToLower());
+
+            if (index >= 0)
+            {
+                ParkedVehicles[index] = null;
+                return true;
+            }
+
+            return false;
         }
 
         internal bool FindVehicleOnRegnumber(string regnumber)
         {
             // Todo: This returns a bool but what if there are multiples vehicles with the same RegNumber due to some user error while input or should the app check this too?
 
-            var q = from v in ParkedVehicles
-                   where v != null && v.RegNumber.ToLower() == regnumber.ToLower()
-                   select v;
-            if (q == null) { return false; }
-            return true;
+            var matchedVehicle = ParkedVehicles.FirstOrDefault(v => v != null && v.RegNumber.ToLower() == regnumber.ToLower());
 
-            // if (!Array.Exists(ParkedVehicles, i => i.RegNumber.ToLower() == regnumber.ToLower())) { return false; }
-            // return true;
+            if (matchedVehicle != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         internal IEnumerable<ExportedListOfVehicles> FindVehicleOnProperties(string fabricant, uint numberofwheels, string color, uint productionyear)
