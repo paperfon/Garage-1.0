@@ -12,7 +12,6 @@ namespace Garage_1._0
         public static uint MaxCapacity;
         private Vehicle[] ParkedVehicles;
         // Only to read when instantiating a garage object
-        // Todo: remove?
         public readonly uint Capacity;
         // Count all the spaces that are not empty
         public int Count => ParkedVehicles.Count(i => i != null);
@@ -66,7 +65,7 @@ namespace Garage_1._0
 
         internal bool ParkVehicle(Vehicle vehicle)
         {
-            if (IsFull) return false;
+            if (IsFull || FindVehicleOnRegnumber(vehicle.RegNumber)) return false;
             // Find an index to park the vehicle (if index is null or there is no regnumber property)
             int index = Array.FindIndex(ParkedVehicles, i => i == null || String.IsNullOrEmpty(i.RegNumber));
             ParkedVehicles[index] = vehicle;
@@ -75,8 +74,7 @@ namespace Garage_1._0
 
         internal bool UnparkVehicle(string regnumber)
         {
-            // Todo: What if trying to unpark an unexisting vehicle?
-            int index = Array.FindIndex(ParkedVehicles, i => i!= null && i.RegNumber.ToLower() == regnumber.ToLower());
+            int index = Array.FindIndex(ParkedVehicles, i => i != null && i.RegNumber.ToLower() == regnumber.ToLower());
 
             if (index >= 0)
             {
@@ -89,8 +87,6 @@ namespace Garage_1._0
 
         internal bool FindVehicleOnRegnumber(string regnumber)
         {
-            // Todo: This returns a bool but what if there are multiples vehicles with the same RegNumber due to some user error while input or should the app check this too?
-
             var matchedVehicle = ParkedVehicles.FirstOrDefault(v => v != null && v.RegNumber.ToLower() == regnumber.ToLower());
 
             if (matchedVehicle != null)
@@ -100,13 +96,18 @@ namespace Garage_1._0
             return false;
         }
 
-        internal IEnumerable<ExportedListOfVehicles> FindVehicleOnProperties(string fabricant, uint numberofwheels, string color, uint productionyear)
+        internal IEnumerable<ExportedListOfVehicles> FindVehicleOnProperties(string typeofvehicle, string fabricant, uint numberofwheels, string color, uint productionyear)
         {
             var result = ListParkedVehicles();
 
+            if (!String.IsNullOrEmpty(typeofvehicle))
+            {
+                result = result.Where(i => i.GetType().Name == typeofvehicle);
+            }
+
             if (!String.IsNullOrEmpty(fabricant))
             {
-                result = result.Where(i => i.Fabricant == fabricant);
+                result = result.Where(i => i.Fabricant.ToLower() == fabricant.ToLower());
             }
 
             if (numberofwheels != 0)
@@ -116,13 +117,13 @@ namespace Garage_1._0
 
             if (!String.IsNullOrEmpty(color))
             {
-                result = result.Where(i => i.Color == color);
+                result = result.Where(i => i.Color.ToLower() == color.ToLower());
             }
 
             if (productionyear != 0)
             {
                 result = result.Where(i => i.ProductionYear == productionyear);
-            }   
+            }
 
             return result;
         }

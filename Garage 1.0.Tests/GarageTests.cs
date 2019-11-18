@@ -9,26 +9,17 @@ namespace Garage_1._0.Tests
         public void Garage_NewInstance()
         {
             // Arrange
-            var garage = new Garage<Vehicle>("My Sharona", 20);
+            var expectedName = "My Sharona";
+            uint expectedCapacity = 20;
+            var garage = new Garage<Vehicle>(expectedName, expectedCapacity);
 
             // Act
-            var expectedName = "Mi garaje";
-            uint expectedCapacity = 20;
+            var actualName = garage.Name;
+            var actualCapacity = garage.Capacity;
 
             // Assert
-            Assert.Equal(expectedName, garage.Name);
-            Assert.Equal(expectedCapacity, garage.Capacity);
-        }
-
-        [Fact]
-        public void Sum()
-        {
-            var test = new Sum();
-            test.SumMethod(2, 2);
-
-            var result = 4;
-
-            Assert.Equal(result, test.APlusB);
+            Assert.Equal(expectedName, actualName);
+            Assert.Equal(expectedCapacity, actualCapacity);
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Garage_1._0
 {
-    class GarageHandler
+    class GarageHandler : IGarageHandler
     {
         public Garage<Vehicle> CreateGarage(string name, uint maxcapacity)
         {
@@ -13,17 +13,18 @@ namespace Garage_1._0
 
         public void ListParkedVehicles(Garage<Vehicle> garage)
         {
-            UI.DisplayParkedVehicles(garage.ListParkedVehicles());
+            UI.ShowParkedVehicles(garage.ListParkedVehicles());
         }
 
         public void ListVehicleTypes(Garage<Vehicle> garage)
         {
-            UI.ListVehiclesTypes(garage.ListVehicleTypes());
+            UI.ShowVehiclesTypes(garage.ListVehicleTypes());
         }
 
         public void ParkVehicle(Garage<Vehicle> garage, Vehicle vehicle)
         {
             if (garage.ParkVehicle(vehicle)) { UI.SuccessParkedMessage(); }
+            else { UI.FailedParkedMessage(); }
         }
 
         public void UnparkVehicle(Garage<Vehicle> garage, string regnumber)
@@ -38,9 +39,9 @@ namespace Garage_1._0
             else { UI.FailedFoundVehicle(); }
         }
 
-        public void FindVehicleOnProperties(Garage<Vehicle> garage, string fabricant = "", uint numberofwheels = 0, string color = "", uint productionyear = 0)
+        public void FindVehicleOnProperties(Garage<Vehicle> garage, string typeofvehicle = "", string fabricant = "", uint numberofwheels = 0, string color = "", uint productionyear = 0)
         {
-            UI.DisplayParkedVehicles(garage.FindVehicleOnProperties(fabricant, numberofwheels, color,  productionyear));
+            UI.ShowParkedVehicles(garage.FindVehicleOnProperties(typeofvehicle, fabricant, numberofwheels, color, productionyear));
         }
     }
 }

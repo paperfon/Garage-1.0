@@ -32,7 +32,6 @@ namespace Garage_1._0
                     MainMenu();
                     break;
             }
-
         }
 
         private static void GarageStarter()
@@ -61,7 +60,7 @@ namespace Garage_1._0
         {
             // Console.Clear();
             Console.WriteLine();
-            var input = Utils.AskForNumber("\n***************************************************"
+            var input = Utils.AskForNumber("***************************************************"
                 + "\nPlease select what you want to do:"
                 + "\n1. List all parked vehicles"
                 + "\n2. List how many of each vehicle type there is"
@@ -110,14 +109,14 @@ namespace Garage_1._0
         private static void CreateAndParkVehicleMenu(Garage<Vehicle> garage)
         {
             // Todo: check first if the garage is full??
-            var input = Utils.AskForNumber("\nWhich vehicle do you want to park?"
+            var input = Utils.AskForNumber("Which vehicle do you want to park?"
                 + "\n1. Airplane"
                 + "\n2. Boat"
                 + "\n3. Bus"
                 + "\n4. Car"
                 + "\n5. Motorcycle"
                 + "\n0. Go back to the garage menu"
-                + "\n_-_-_-_-_-_-_-_-_-_-_-_-_-_-_");
+                + "\n - - - - - - - - - - - - - - ");
 
             var promptRegNumber = "Registration number:";
             var promptFabricant = "Brand:";
@@ -199,67 +198,89 @@ namespace Garage_1._0
 
         private static void FindVehicleByPropertiesMenu(Garage<Vehicle> garage)
         {
-            var input = Utils.AskForNumber("\nSelect multiple properties one by one and then press 5 to filter from the parked vehicles"
-                + "\n1. Fabricant"
-                + "\n2. Number of wheels"
-                + "\n3. Color"
-                + "\n4. Production year"
-                + "\n5. Filter"
-                + "\n0. Go back to the garage menu"
-                + "\n_-_-_-_-_-_-_-_-_-_-_-_-_-_-_");
 
+            string typeofvehicle = "";
             string fabricant = "";
             uint numberofwheels = 0;
             string color = "";
             uint productionyear = 0;
 
-            switch (input)
+            while (true)
             {
-                case 1:
-                    fabricant = Utils.AskForInput("");
-                    FindVehicleByPropertiesMenu(garage);
-                    break;
-                case 2:
-                    numberofwheels = Utils.AskForNumber("");
-                    FindVehicleByPropertiesMenu(garage);
-                    break;
-                case 3:
-                    color = Utils.AskForInput("");
-                    FindVehicleByPropertiesMenu(garage);
-                    break;
-                case 4:
-                    productionyear = Utils.AskForNumber("");
-                    FindVehicleByPropertiesMenu(garage);
-                    break;
-                case 5:
-                    handler.FindVehicleOnProperties(garage, fabricant, numberofwheels, color, productionyear);
-                    GarageMenu(garage);
-                    break;
-                case 0:
-                    GarageMenu(garage);
-                    break;
-                default:
-                    Console.WriteLine("Please make a valid selection!\n");
-                    FindVehicleByPropertiesMenu(garage);
-                    break;
+
+                var input = Utils.AskForNumber("\nSelect multiple properties one by one and then press 6 to filter from the parked vehicles"
+                    + "\n1. Type of vehicle"
+                    + "\n2. Fabricant"
+                    + "\n3. Number of wheels"
+                    + "\n4. Color"
+                    + "\n5. Production year"
+                    + "\n6. SEARCH AND FILTER"
+                    + "\n0. Go back to the garage menu"
+                    + "\n - - - - - - - - - - - - - - ");
+
+                switch (input)
+                {
+                    case 1:
+                        var internalinput = Utils.AskForNumber("Filter by type of vehicle:"
+                            + "\n1. Airplane"
+                            + "\n2. Boat"
+                            + "\n3. Bus"
+                            + "\n4. Car"
+                            + "\n5. Motorcycle");
+                        if (internalinput == 1) { typeofvehicle = "Airplane"; }
+                        else if (internalinput == 2) { typeofvehicle = "Boat"; }
+                        else if (internalinput == 3) { typeofvehicle = "Bus"; }
+                        else if (internalinput == 4) { typeofvehicle = "Car"; }
+                        else if (internalinput == 5) { typeofvehicle = "Motorcycle"; }
+                        else { Console.WriteLine("You haven't made any valid selection.."); }
+                        break;
+                    case 2:
+                        fabricant = Utils.AskForInput("Filter by the fabricant:");
+                        break;
+                    case 3:
+                        numberofwheels = Utils.AskForNumber("Filter by number of wheels:");
+                        break;
+                    case 4:
+                        color = Utils.AskForInput("Filter by color:");
+                        break;
+                    case 5:
+                        productionyear = Utils.AskForNumber("Filter by production year:");
+                        break;
+                    case 6:
+                        handler.FindVehicleOnProperties(garage, typeofvehicle, fabricant, numberofwheels, color, productionyear);
+                        GarageMenu(garage);
+                        break;
+                    case 0:
+                        GarageMenu(garage);
+                        break;
+                    default:
+                        Console.WriteLine("Please make a valid selection!\n");
+                        FindVehicleByPropertiesMenu(garage);
+                        break;
+                }
             }
         }
 
         public static void SuccessParkedMessage()
         {
-            Console.WriteLine("The vehicle was successfully parked!");
+            Console.WriteLine("The vehicle was successfully parked!\n");
+        }
+
+        internal static void FailedParkedMessage()
+        {
+            Console.WriteLine("The garage is full or there is already another vehicle with that registration number!\n");
         }
 
         public static void SuccessUnparkMessage()
         {
-            Console.WriteLine("The vehicle was successfully unparked from the garage!");
+            Console.WriteLine("The vehicle was successfully unparked from the garage!\n");
         }
 
         internal static void FailedUnparkMessage()
         {
-            Console.WriteLine("The vehicle was not found..");
+            Console.WriteLine("The vehicle was not found..\n");
         }
-        internal static void ListVehiclesTypes(IEnumerable<IGrouping<string, Vehicle>> listOfVehiclesByType)
+        internal static void ShowVehiclesTypes(IEnumerable<IGrouping<string, Vehicle>> listOfVehiclesByType)
         {
             foreach (var item in listOfVehiclesByType)
             {
@@ -273,29 +294,36 @@ namespace Garage_1._0
             }
         }
 
-        internal static void DisplayParkedVehicles(IEnumerable<Garage_1._0.Garage<Vehicle>.ExportedListOfVehicles> parkedVehicles)
+        internal static void ShowParkedVehicles(IEnumerable<Garage_1._0.Garage<Vehicle>.ExportedListOfVehicles> parkedVehicles)
         {
-            Console.WriteLine("\nThe parked vehicles in the garage are:");
-            foreach (var item in parkedVehicles)
+            if (!parkedVehicles.Any())
             {
-                Console.WriteLine("\nParking Spot Nr: " + item.ParkingSpot
-                    + "\nVehicle Type: " + item.TypeOfVehicle
-                    + "\nReg Number: " + item.RegNumber
-                    + "\nFabricant: " + item.Fabricant
-                    + "\nNumber of Wheels: " + item.NumberOfWheels
-                    + "\nColor: " + item.Color
-                    + "\nProduction Year: " + item.ProductionYear
-                    + "\n- - - - - - -");
+                Console.WriteLine("The garage is empty or there aren't any parked vehicles with those properties..");
+            }
+            else
+            {
+                Console.WriteLine("\nThe parked vehicles in the garage are:");
+                foreach (var item in parkedVehicles)
+                {
+                    Console.WriteLine("\nParking Spot Nr: " + item.ParkingSpot
+                        + "\nVehicle Type: " + item.TypeOfVehicle
+                        + "\nReg Number: " + item.RegNumber
+                        + "\nFabricant: " + item.Fabricant
+                        + "\nNumber of Wheels: " + item.NumberOfWheels
+                        + "\nColor: " + item.Color
+                        + "\nProduction Year: " + item.ProductionYear
+                        + "\n- - - - - - -");
+                }
             }
         }
         internal static void FailedFoundVehicle()
         {
-            Console.WriteLine("The vehicle with that registration number was not found..");
+            Console.WriteLine("The vehicle with that registration number was not found..\n");
         }
 
         internal static void SuccessFoundVehicle()
         {
-            Console.WriteLine($"The vehicle was found at the parking!");
+            Console.WriteLine($"The vehicle was found at the parking!\n");
         }
     }
 }
